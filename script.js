@@ -187,9 +187,9 @@ let current_account=function(accs){
     return accs.find((acc)=>(acc.username===login.value)&&(Number(password.value)===acc.pin))
 };
 
-
+let timer_id;
 let set_timer=function(given_time){
-    setInterval(()=>{
+    timer_id=setInterval(()=>{
         if(given_time<=0){
             clearInterval(set_timer);
             welcome.textContent="Log in to get started";
@@ -232,7 +232,7 @@ let UpdateUI=function(){
     
     login.value="";
     password.value="";
-    set_timer(time_runner);
+    
     
 
 
@@ -254,6 +254,9 @@ login_button.addEventListener("click",function(e){
         welcome.textContent=`Welcome back, ${current.owner}`;
 
         UpdateUI();
+        clearInterval(timer_id);
+        time_runner=100;
+        set_timer(time_runner);
 
         
     }
